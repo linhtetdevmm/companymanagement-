@@ -1,0 +1,8 @@
+{
+  "name": "ClaretOS ERP",
+  "description": "Lightweight, unified company management workspace for Owner, People & HR, Sales, CRM, Marketing, and Finance.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

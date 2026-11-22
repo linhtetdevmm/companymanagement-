@@ -1,0 +1,593 @@
+{
+  "entities": {
+    "Workspace": {
+      "title": "Workspace",
+      "description": "Company workspace configuration and brand identity owned by the authenticated user.",
+      "type": "object",
+      "properties": {
+        "ownerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "slug": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[a-z0-9\\-]+$"
+        },
+        "currency": {
+          "type": "string",
+          "enum": ["MMK", "USD"]
+        },
+        "fiscalYear": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 20
+        },
+        "tagline": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "brandVoice": {
+          "type": "string",
+          "maxLength": 300
+        },
+        "mission": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["ownerId", "name", "slug", "currency", "fiscalYear", "createdAt", "updatedAt"]
+    },
+    "Employee": {
+      "title": "Employee",
+      "description": "Employee record supporting directory, payroll, KPIs, and onboarding.",
+      "type": "object",
+      "properties": {
+        "ownerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "email": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "phone": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "department": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "position": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "role": {
+          "type": "string",
+          "enum": ["Owner", "Manager", "HR", "Sales", "Finance", "Staff"]
+        },
+        "baseSalary": {
+          "type": "number"
+        },
+        "joinDate": {
+          "type": "string",
+          "maxLength": 32
+        },
+        "status": {
+          "type": "string",
+          "enum": ["Active", "On Leave", "Probation", "Offboarded"]
+        },
+        "onboardingProgress": {
+          "type": "number"
+        },
+        "kpiScore": {
+          "type": "number"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["ownerId", "name", "department", "position", "role", "baseSalary", "status", "createdAt", "updatedAt"]
+    },
+    "Department": {
+      "title": "Department",
+      "description": "Organizational department and head budget.",
+      "type": "object",
+      "properties": {
+        "ownerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "managerName": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "budget": {
+          "type": "number"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 400
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["ownerId", "name", "budget", "createdAt", "updatedAt"]
+    },
+    "HrRequest": {
+      "title": "HrRequest",
+      "description": "HR workflow records including leave, attendance, recruitment, checklists, and kudos.",
+      "type": "object",
+      "properties": {
+        "ownerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "kind": {
+          "type": "string",
+          "enum": ["leave", "attendance", "recruitment", "kudos", "checklist"]
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "subjectName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "department": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "date": {
+          "type": "string",
+          "maxLength": 32
+        },
+        "endDate": {
+          "type": "string",
+          "maxLength": 32
+        },
+        "detail": {
+          "type": "string",
+          "maxLength": 600
+        },
+        "status": {
+          "type": "string",
+          "enum": ["Pending", "Approved", "Rejected", "Completed", "Interview", "Hired", "Present", "Late", "Remote"]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["ownerId", "kind", "title", "subjectName", "status", "createdAt", "updatedAt"]
+    },
+    "Customer": {
+      "title": "Customer",
+      "description": "CRM customer contact and lifecycle intelligence.",
+      "type": "object",
+      "properties": {
+        "ownerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "company": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "email": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "phone": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "industry": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "interestLevel": {
+          "type": "string",
+          "enum": ["Hot", "Warm", "Cold"]
+        },
+        "lifecycleStage": {
+          "type": "string",
+          "enum": ["Lead", "Active", "VIP", "Churned"]
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 800
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["ownerId", "name", "interestLevel", "lifecycleStage", "createdAt", "updatedAt"]
+    },
+    "Meeting": {
+      "title": "Meeting",
+      "description": "Scheduled CRM customer meeting booking.",
+      "type": "object",
+      "properties": {
+        "ownerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "customerName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "dateTime": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "location": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "status": {
+          "type": "string",
+          "enum": ["Scheduled", "Completed", "Cancelled"]
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 600
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["ownerId", "title", "customerName", "dateTime", "status", "createdAt", "updatedAt"]
+    },
+    "Deal": {
+      "title": "Deal",
+      "description": "Sales deal, order payment, commission, and lost-why record.",
+      "type": "object",
+      "properties": {
+        "ownerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "customerName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "assignee": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "amount": {
+          "type": "number"
+        },
+        "stage": {
+          "type": "string",
+          "enum": ["Lead", "Qualified", "Proposal", "Negotiation", "Won", "Lost"]
+        },
+        "lostReason": {
+          "type": "string",
+          "enum": ["None", "Price", "Timing", "Competitor", "Scope"]
+        },
+        "paymentStatus": {
+          "type": "string",
+          "enum": ["Unpaid", "Pending Approval", "Paid"]
+        },
+        "commissionRate": {
+          "type": "number"
+        },
+        "dueDate": {
+          "type": "string",
+          "maxLength": 32
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 800
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["ownerId", "title", "customerName", "amount", "stage", "lostReason", "paymentStatus", "commissionRate", "createdAt", "updatedAt"]
+    },
+    "SalesDoc": {
+      "title": "SalesDoc",
+      "description": "Sales knowledge articles, staff threads, and monthly sales targets.",
+      "type": "object",
+      "properties": {
+        "ownerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "kind": {
+          "type": "string",
+          "enum": ["article", "thread", "target", "followup"]
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "author": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "body": {
+          "type": "string",
+          "maxLength": 1500
+        },
+        "targetAmount": {
+          "type": "number"
+        },
+        "period": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "status": {
+          "type": "string",
+          "enum": ["Open", "Done", "Active"]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["ownerId", "kind", "title", "createdAt", "updatedAt"]
+    },
+    "MarketingItem": {
+      "title": "MarketingItem",
+      "description": "Marketing hub products, editorial calendar items, and ad campaigns.",
+      "type": "object",
+      "properties": {
+        "ownerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "kind": {
+          "type": "string",
+          "enum": ["product", "content", "campaign"]
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "channelOrCategory": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "skuOrDate": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "budgetOrPrice": {
+          "type": "number"
+        },
+        "spent": {
+          "type": "number"
+        },
+        "leadsCount": {
+          "type": "number"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["Active", "Draft", "Scheduled", "Published", "Paused", "Completed"]
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 600
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["ownerId", "kind", "title", "budgetOrPrice", "status", "createdAt", "updatedAt"]
+    },
+    "FinanceEntry": {
+      "title": "FinanceEntry",
+      "description": "Financial transactions, journal entries, advance claims, receipts, AR/AP, budgets, chart of accounts, and cash rules.",
+      "type": "object",
+      "properties": {
+        "ownerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "kind": {
+          "type": "string",
+          "enum": ["cash", "journal", "claim", "receipt", "arap", "budget", "account", "rule"]
+        },
+        "date": {
+          "type": "string",
+          "maxLength": 32
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "category": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "direction": {
+          "type": "string",
+          "enum": ["In", "Out", "Debit", "Credit", "AR", "AP", "Asset", "Liability", "Equity", "Revenue", "Expense", "Rule"]
+        },
+        "counterAccount": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "amount": {
+          "type": "number"
+        },
+        "limitAmount": {
+          "type": "number"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["Pending", "Approved", "Rejected", "Settled", "Posted", "Active"]
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 600
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["ownerId", "kind", "title", "direction", "amount", "status", "createdAt", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/workspaces/{workspaceId}": {
+      "schema": { "$ref": "#/entities/Workspace" },
+      "description": "Root workspace owned by the authenticated user."
+    },
+    "/workspaces/{workspaceId}/employees/{employeeId}": {
+      "schema": { "$ref": "#/entities/Employee" },
+      "description": "Employees belonging to the workspace."
+    },
+    "/workspaces/{workspaceId}/departments/{departmentId}": {
+      "schema": { "$ref": "#/entities/Department" },
+      "description": "Departments belonging to the workspace."
+    },
+    "/workspaces/{workspaceId}/hrRequests/{requestId}": {
+      "schema": { "$ref": "#/entities/HrRequest" },
+      "description": "HR requests, attendance, recruitment, checklists, and kudos."
+    },
+    "/workspaces/{workspaceId}/customers/{customerId}": {
+      "schema": { "$ref": "#/entities/Customer" },
+      "description": "CRM customers belonging to the workspace."
+    },
+    "/workspaces/{workspaceId}/meetings/{meetingId}": {
+      "schema": { "$ref": "#/entities/Meeting" },
+      "description": "CRM scheduled meetings belonging to the workspace."
+    },
+    "/workspaces/{workspaceId}/deals/{dealId}": {
+      "schema": { "$ref": "#/entities/Deal" },
+      "description": "Sales deals and orders belonging to the workspace."
+    },
+    "/workspaces/{workspaceId}/salesDocs/{docId}": {
+      "schema": { "$ref": "#/entities/SalesDoc" },
+      "description": "Sales knowledge articles, staff threads, targets, and follow-ups."
+    },
+    "/workspaces/{workspaceId}/marketingItems/{itemId}": {
+      "schema": { "$ref": "#/entities/MarketingItem" },
+      "description": "Marketing products, editorial calendar items, and campaigns."
+    },
+    "/workspaces/{workspaceId}/financeEntries/{entryId}": {
+      "schema": { "$ref": "#/entities/FinanceEntry" },
+      "description": "Finance ledger, journal, claims, receipts, AR/AP, budgets, accounts, and cash rules."
+    }
+  }
+}
